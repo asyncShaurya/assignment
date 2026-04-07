@@ -12,6 +12,7 @@ export const askQuestion = async (req, res, next) => {
       });
     }
     const docs = await retrieveDocs(question);
+    console.log(`Retrieved ${docs.length} docs for question: ${question}`);
 
     const llmResponse = await generateAnswer(question, docs);
 

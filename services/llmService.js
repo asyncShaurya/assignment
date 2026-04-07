@@ -1,9 +1,10 @@
 import OpenAI from "openai";
-const client = new OpenAI({
-  apiKey: process.env.OPENAI_API_KEY
-});
 
 export const generateAnswer = async (question, docs) => {
+  const client = new OpenAI({
+    apiKey: process.env.OPENAI_API_KEY
+  });
+
   try {
     const context = docs.map((doc, index) => {
       return `Doc ${index + 1}:
@@ -27,7 +28,7 @@ Return ONLY valid JSON:
 `;
 
     const response = await client.chat.completions.create({
-      model: "gpt-4o-mini",
+      model: "gpt-3.5-turbo",
       messages: [
         {
           role: "user",
@@ -54,7 +55,7 @@ Return ONLY valid JSON:
     console.error("LLM Error:", error.message);
 
     return {
-      answer: "Error generating response"
+      answer: `Error: ${error.message}`
     };
   }
 };

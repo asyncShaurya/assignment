@@ -21,7 +21,7 @@ export const retrieveDocs = async (question) => {
     }));
 
     const docs = await Document.find({
-      $and: searchConditions
+      $or: searchConditions
     }).limit(5);
 
     const scoredDocs = docs.map(doc => {
